@@ -8,6 +8,8 @@ Create a new Express app and make base routes for each of these functionalities.
 
 ## `/animal` - Valid animal tester.
 
+## Backend
+
 Create an array or an object and fill it with strings representing animal species (e.g. `'zebra'`, `'tiger'`, etc.).
 
 When you query your `localhost` app at the route `/animal`, appending an animal's name (e.g. `localhost:3000/animal/lion`), you should return a boolean as a response - `true` or `false` depending on whether their second parameter (`lion`) can be found in your animal list. Your response should be in this format:
@@ -20,6 +22,10 @@ When you query your `localhost` app at the route `/animal`, appending an animal'
 ```
 
 Create a middleware function, `isAnimal`, to check if the requested animal is in the list and route the user's request accordingly. As your user doesn't need to update, delete, or add information, this can be a GET request.
+
+## Front end
+
+Create an `input` and a button.  Clicking on the button should send a request to this endpoint.  Display the result using whatever UI you want to.
 
 ## `/random` - Random number picker.
 
@@ -36,6 +42,10 @@ For example, the request at `localhost:3000/random?floor=10&ceil=23` should retu
 ```
 
 In order to help us pick a random number, we first need to assemble an array with each number in between the numbers in our range. Create a middleware function `generateSpread` which assembles an array of all integers between the two inputs. Once you've assembled this array, send your response with a random choice from it.
+
+## Front end
+
+Create two additional `input`s and an additional button.  Clicking the button should call the endpoint with the floor and ceiling from the inputs, then display the result.
 
 ## `/queue` - Queue manager.
 
