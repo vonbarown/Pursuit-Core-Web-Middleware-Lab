@@ -8,7 +8,7 @@ Create a new Express app and make base routes for each of these functionalities.
 
 ## `/animal` - Valid animal tester.
 
-## Backend
+### Backend
 
 Create an array or an object and fill it with strings representing animal species (e.g. `'zebra'`, `'tiger'`, etc.).
 
@@ -23,11 +23,13 @@ When you query your `localhost` app at the route `/animal`, appending an animal'
 
 Create a middleware function, `isAnimal`, to check if the requested animal is in the list and route the user's request accordingly. As your user doesn't need to update, delete, or add information, this can be a GET request.
 
-## Front end
+### Front-end
 
 Create an `input` and a button.  Clicking on the button should send a request to this endpoint.  Display the result using whatever UI you want to.
 
 ## `/random` - Random number picker.
+
+### Backend
 
 The user should be able to query `/random` with **two** additional request parameters: A floor and a ceiling, both integers. Create a route that accepts a GET request to pick a random number between the floor and the ceiling.
 
@@ -43,11 +45,13 @@ For example, the request at `localhost:3000/random?floor=10&ceil=23` should retu
 
 In order to help us pick a random number, we first need to assemble an array with each number in between the numbers in our range. Create a middleware function `generateSpread` which assembles an array of all integers between the two inputs. Once you've assembled this array, send your response with a random choice from it.
 
-## Front end
+### Front-end
 
 Create two additional `input`s and an additional button.  Clicking the button should call the endpoint with the floor and ceiling from the inputs, then display the result.
 
 ## `/queue` - Queue manager.
+
+### Backend
 
 Create an array full of strings representing people's names in some kind of line (or _queue_). Account for three additional URL parameters: `/peek`, `/enqueue`, and `/dequeue`. These should access and modify the array in the **same ways** that you'd access and modify a queue. For our purposes, the **end** of the array will represent the **front** of the queue. For example, with the array `['xavier', 'michelle', 'corey', 'reed']`:
 
@@ -91,3 +95,7 @@ And should modify the array to be:
 ```
 
 Create a middleware function, `handleQueue`, that performs the appropriate action on the array depending on which URL parameters are queried.
+
+### Front-end
+
+Add another `input` and buttons for "peek", "enqueue", and "dequeue".
