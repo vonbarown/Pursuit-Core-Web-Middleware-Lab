@@ -2,9 +2,9 @@
 
 # Middleware Exercises
 
-Create a new Express app and make base routes for each of these functionalities. Separate out each route into a separate module._
+Create a new Express app and make base routes for each of these functionalities.
 
-**Note:** Even though many of these functionalities could _technically_ be created without middleware, as our projects ramp up in complexity, it is **far** cleaner to implement your app's routing with middeware.
+**Note:** Even though many of these functionalities could _technically_ be created without middleware, as our projects ramp up in complexity, it is **far** cleaner to implement your app's routing with middleware.
 
 ## `/animal` - Valid animal tester.
 
