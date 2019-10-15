@@ -32,11 +32,17 @@ app.get('/animal/:input', isAnimal, errorMessage)
 
 const getRandomNum = (req, res, next) => {
     let floor = req.query.floor;
-    let ceil = req.query.max
-    return Math.floor((Math.random() * max) + floor)
+    let ceil = req.query.ceil
+    // return Math.floor((Math.random() * max) + floor)
+
+    res.json({
+        status: "success",
+        range: [floor, ceil],
+        randPick: Math.floor((Math.random() * ceil) + floor)
+    })
 };
 
-app.get('/random')
+app.get('/random', getRandomNum)
 
 app.listen(port, () => {
     console.log(`Running at http://localhost:${port}/`);
