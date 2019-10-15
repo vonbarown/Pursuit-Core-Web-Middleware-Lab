@@ -12,10 +12,10 @@ app.use(handleCors)
 
 const isAnimal = (req, res, next) => {
     let input = req.params.input
-    const animals = ["jackal", "whale", "worm", "stork", "frog", "fox", "guppy"]
+    const animals = ["jackal", "whale", "worm", "stork", "frog", "fox", "guppy", "dog"]
 
     animals.includes(input) ? res.json({
-        status: "sucess,you entered an animal",
+        status: "success, you entered an animal",
         message: true
     }) : next()
 }
@@ -72,8 +72,14 @@ const cutLAst = (req, res, next) => {
     console.log(names);
 
 }
+const emptyArr = (req, res, next) => {
+    names.length === 0 ? res.json({
+        status: "success",
+        dequeued: "The array is currently empty"
+    }) : next()
+}
 
-app.get('/queue/dequeue', cutLAst)
+app.get('/queue/dequeue', emptyArr, cutLAst)
 app.listen(port, () => {
     console.log(`Running at http://localhost:${port}/`);
 })
