@@ -33,8 +33,6 @@ app.get('/animal/:input', isAnimal, errorMessage)
 const getRandomNum = (req, res, next) => {
     let floor = req.query.floor;
     let ceil = req.query.ceil
-    // return Math.floor((Math.random() * max) + floor)
-
     res.json({
         status: "success",
         range: [floor, ceil],
@@ -44,6 +42,38 @@ const getRandomNum = (req, res, next) => {
 
 app.get('/random', getRandomNum)
 
+let names = ['xavier', 'michelle', 'corey', 'reed'];
+const peek = (req, res, next) => {
+    res.json({
+        status: "success",
+        data: names[names.length - 1]
+    })
+}
+
+app.get('/queue/peek', peek)
+
+const enQueue = (req, res, next) => {
+    let name = req.query.name
+    names.unshift(name);
+    res.json({
+        status: "success",
+        enqueued: name
+    })
+}
+app.get('/queue/enqueue', enQueue)
+
+const cutLAst = (req, res, next) => {
+    let deName = names[names.length - 1]
+    names.pop()
+    res.json({
+        status: "success",
+        dequeued: deName
+    })
+    console.log(names);
+
+}
+
+app.get('/queue/dequeue', cutLAst)
 app.listen(port, () => {
     console.log(`Running at http://localhost:${port}/`);
 })
