@@ -16,8 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     dequeue.addEventListener('click', deQueueData)
 })
 
+const getSearchResultsDiv = () => document.querySelector('.searchResults')
 
 const animalChecker = async () => {
+    clearSearchResultsDiv()
+
     let animalInput = document.querySelector('#animalInput').value
     let url = `http://localhost:8080/animal/${animalInput}`
 
@@ -26,18 +29,19 @@ const animalChecker = async () => {
     } = await axios.get(url)
     console.log(data);
 
-    clearQueueData()
-    let searchResults = document.querySelector('.searchResults')
+
+    let container = getSearchResultsDiv()
     let status = document.createElement('p');
     let message = document.createElement('p');
 
     status.innerText = `Status: ${data.status}`;
     message.innerText = `Message: ${data.message}`;
 
-    searchResults.append(status, message)
+    container.append(status, message)
 }
 
 const getRandomNum = async () => {
+    clearSearchResultsDiv()
     let floor = document.querySelector('#floor').value;
     let ceil = document.querySelector('#ceil').value;
 
@@ -49,7 +53,7 @@ const getRandomNum = async () => {
     console.log(data);
 
 
-    let container = document.querySelector('.randomResults');
+    let container = getSearchResultsDiv()
     let status = document.createElement('p');
     let range = document.createElement('p');
     let randNum = document.createElement('p');
@@ -101,7 +105,7 @@ const enqueueData = async () => {
     status.innerText = `Status: ${data.status}`;
     enqueued.innerText = `The name that you added is: ${data.enqueued}`;
 
-    results.append(status, enqueued, arr)
+    results.append(status, enqueued)
 }
 const deQueueData = async () => {
     clearQueueData()
@@ -125,6 +129,13 @@ const deQueueData = async () => {
 
 const clearQueueData = () => {
     let container = document.querySelector('.results');
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+}
+
+const clearSearchResultsDiv = () => {
+    let container = getSearchResultsDiv()
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }

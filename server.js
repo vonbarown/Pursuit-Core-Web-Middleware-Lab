@@ -41,10 +41,11 @@ const validateRandomNum = (req, res, next) => {
 const getRandomNum = (req, res, next) => {
     let floor = parseInt(req.query.floor);
     let ceil = parseInt(req.query.ceil);
+    let randNum = Math.floor((Math.random() * ceil) + floor);
     res.json({
         status: "success",
         range: [floor, ceil],
-        randPick: Math.floor((Math.random() * ceil) + floor)
+        randPick: randNum
     })
 }
 
