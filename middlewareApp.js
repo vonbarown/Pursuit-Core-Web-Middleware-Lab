@@ -7,7 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     randomButton.addEventListener('click', getRandomNum)
 
     let peek = document.querySelector('#peek')
-    peek.addEventListener('click', getRandomNum)
+    peek.addEventListener('click', peekInto)
+
+    let enqueue = document.querySelector('#enqueueButton')
+    enqueue.addEventListener('click', enqueueData)
+
+    let dequeue = document.querySelector('#dequeueButton')
+    dequeue.addEventListener('click', deQueueData)
 })
 
 
@@ -20,7 +26,7 @@ const animalChecker = async () => {
     } = await axios.get(url)
     console.log(data);
 
-    clearScreen()
+    clearQueueData()
     let searchResults = document.querySelector('.searchResults')
     let status = document.createElement('p');
     let message = document.createElement('p');
@@ -42,8 +48,8 @@ const getRandomNum = async () => {
     } = await axios.get(url)
     console.log(data);
 
-    clearScreen()
-    let randomResults = document.querySelector('.randomResults')
+
+    let container = document.querySelector('.randomResults');
     let status = document.createElement('p');
     let range = document.createElement('p');
     let randNum = document.createElement('p');
@@ -52,19 +58,22 @@ const getRandomNum = async () => {
     range.innerText = `Your range is: ${data.range}`;
     randNum.innerText = `The random number is: ${data.randPick}`;
 
-    randomResults.append(status, range, randPick)
+    container.append(status, range, randNum)
+
+    // while (container.firstChild) {
+    //     container.removeChild(container.firstChild);
+    // }
 }
 
-const peek = async () => {
+const peekInto = async () => {
 
-    let queueButton = document.querySelector('#queueInput').value
     let name = document.querySelector('#inputName').value
     let enqueueUrl = `http://localhost:8080/queue/peek`
 
     const {
         data
     } = await axios.get(enqueueUrl);
-    clearScreen()
+    clearQueueData()
 
     let results = document.querySelector('.results')
     let status = document.createElement('p');
@@ -72,34 +81,50 @@ const peek = async () => {
 
 
     status.innerText = `Status: ${data.status}`;
-    peekData.innerText = `Your range is: ${data.data}`;
+    peekData.innerText = `The last element in your queue is: ${data.data}`;
 
     results.append(status, peekData)
 }
 
-const enqueue = async () => {
-
-    let name = document.querySelector('#inputName').value
-    let enqueueUrl = `http://localhost:8080/queue/ls?name=${name}`
+const enqueueData = async () => {
+    clearQueueData()
+    let inputName = document.querySelector('#inputName').value
+    let enqueueUrl = `http://localhost:8080/queue/enqueue?name=${inputName}`
 
     const {
         data
     } = await axios.get(enqueueUrl);
-    clearScreen()
 
     let results = document.querySelector('.results')
     let status = document.createElement('p');
     let enqueued = document.createElement('p');
+    status.innerText = `Status: ${data.status}`;
+    enqueued.innerText = `The name that you added is: ${data.enqueued}`;
+
+    results.append(status, enqueued, arr)
+}
+const deQueueData = async () => {
+    clearQueueData()
+    let dequeueUrl = `http://localhost:8080/queue/dequeue`
+
+    const {
+        data
+    } = await axios.get(dequeueUrl);
+
+
+    let results = document.querySelector('.results')
+    let status = document.createElement('p');
+    let dequeuedData = document.createElement('p');
 
 
     status.innerText = `Status: ${data.status}`;
-    enqueued.innerText = `Your range is: ${data.enqueued}`;
+    dequeuedData.innerText = `The element removed is: ${data.dequeued}`;
 
-    results.append(status, enqueued)
+    results.append(status, dequeuedData)
 }
 
-const clearScreen = () => {
-    let container = document.querySelector('.searchResults');
+const clearQueueData = () => {
+    let container = document.querySelector('.results');
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }

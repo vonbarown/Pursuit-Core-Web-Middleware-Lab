@@ -30,17 +30,25 @@ const errorMessage = (req, res, next) => {
 app.get('/animal/:input', isAnimal, errorMessage)
 
 
+const validateRandomNum = (req, res, next) => {
+    let floor = parseInt(req.query.floor);
+    let ceil = parseInt(req.query.ceil);
+    (isNaN(ceil) || isNaN(floor)) ? res.json({
+        status: "Error input is invalid"
+    }): next()
+};
+
 const getRandomNum = (req, res, next) => {
-    let floor = req.query.floor;
-    let ceil = req.query.ceil
+    let floor = parseInt(req.query.floor);
+    let ceil = parseInt(req.query.ceil);
     res.json({
         status: "success",
         range: [floor, ceil],
         randPick: Math.floor((Math.random() * ceil) + floor)
     })
-};
+}
 
-app.get('/random', getRandomNum)
+app.get('/random', validateRandomNum, getRandomNum)
 
 let names = ['xavier', 'michelle', 'corey', 'reed'];
 const peek = (req, res, next) => {
@@ -67,7 +75,8 @@ const cutLAst = (req, res, next) => {
     names.pop()
     res.json({
         status: "success",
-        dequeued: deName
+        dequeued: deName,
+        array: names
     })
     console.log(names);
 
